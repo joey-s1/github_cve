@@ -1,6 +1,6 @@
 # github_cve
 
-Search exploit/cve/POC stuff from github
+Search exploit/cve/POC stuff from github and store them into google sheet
 
 ## Installation
 
