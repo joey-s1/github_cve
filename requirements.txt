@@ -1,0 +1,3 @@
+gspread==5.1.1
+oauth2client
+PyGithub==1.55
