@@ -23,13 +23,22 @@ def search_github(keywords):
     result_ = []
     for repo in repositories_sum:
         #print(repo.__dict__)
-        CVE_pattern = re.compile(r'CVE-\d{4}-\d{4,7}')
-        CVE = CVE_pattern.findall(f'{repo.description}')
-        CVE_ = "".join(CVE)
+        CVE_ = CVE_parser(f'{repo.description}', f'{repo.clone_url}')
         data = f'{repo.clone_url}' + ',' + f'{repo.updated_at}' + ',' + f'{repo.created_at}' + ',' + CVE_
         data = [data_.strip() for data_ in data.split(',')]
         result_.append(data)
     return result_
+
+def CVE_parser(description, url):
+    CVE_pattern = re.compile(r'(?i)CVE-\d{4}-\d{4,7}')
+    if bool(CVE_pattern.findall(description)) == True:
+        CVE = CVE_pattern.findall(description)
+        CVE = "".join(CVE)
+        return CVE
+    else:
+        CVE = CVE_pattern.findall(url)
+        CVE = "".join(CVE)
+        return CVE    
 
 def gsheet(datas):
     #google client OAuth
